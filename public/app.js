@@ -1,3 +1,9 @@
+// --- Backend URL ---
+// Change this to your Railway backend URL after deploying
+const BACKEND_URL = window.location.hostname === 'localhost'
+  ? ''  // same origin for local dev
+  : 'https://imposter-production.up.railway.app'; // <-- UPDATE THIS after Railway deploy
+
 // --- State ---
 const state = {
   socket: null,
@@ -165,7 +171,7 @@ function renderVoteGrid(players) {
 
 // --- Socket Setup ---
 function initSocket() {
-  const socket = io({
+  const socket = io(BACKEND_URL, {
     reconnection: true,
     reconnectionAttempts: 10,
     reconnectionDelay: 1000

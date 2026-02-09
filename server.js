@@ -11,7 +11,7 @@ const io = new Server(httpServer, {
   pingTimeout: 10000,
   pingInterval: 5000,
   cors: {
-    origin: '*',
+    origin: ['https://sahilkhan888.github.io', 'http://localhost:3000'],
     methods: ['GET', 'POST']
   }
 });
