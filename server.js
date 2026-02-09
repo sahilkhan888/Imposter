@@ -9,7 +9,11 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   pingTimeout: 10000,
-  pingInterval: 5000
+  pingInterval: 5000,
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -640,6 +644,6 @@ setInterval(() => {
 }, 60000);
 
 const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, () => {
-  console.log(`Imposter Game running on http://localhost:${PORT}`);
+httpServer.listen(PORT, '0.0.0.0', () => {
+  console.log(`Imposter Game running on port ${PORT}`);
 });
