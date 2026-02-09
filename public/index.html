@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Imposter Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1 class="logo">IMPOSTER</h1>
+      <div id="room-info" class="hidden">
+        <span class="room-badge">Room: <strong id="room-code-display"></strong></span>
+      </div>
+    </header>
+
+    <main>
+      <!-- VIEW: Home -->
+      <section id="view-home" class="view active">
+        <div class="card">
+          <h2>Play with Friends</h2>
+          <p class="subtitle">Find the imposter among you</p>
+          <div class="form-group">
+            <label for="input-name">Your Name</label>
+            <input id="input-name" type="text" placeholder="Enter your name" maxlength="20" autocomplete="off" />
+          </div>
+          <button id="btn-create" class="btn btn-primary">Create Game</button>
+          <div class="divider"><span>or join a game</span></div>
+          <div class="form-group">
+            <label for="input-room-code">Room Code</label>
+            <input id="input-room-code" type="text" placeholder="e.g. ABCD" maxlength="4" autocomplete="off" />
+          </div>
+          <button id="btn-join" class="btn btn-secondary">Join Game</button>
+        </div>
+      </section>
+
+      <!-- VIEW: Lobby -->
+      <section id="view-lobby" class="view">
+        <div class="card">
+          <div class="lobby-header">
+            <h2>Waiting Room</h2>
+            <div class="room-code-large" id="lobby-room-code"></div>
+            <p class="subtitle">Share this code with your friends</p>
+          </div>
+          <div class="player-count-bar">
+            <span id="lobby-player-count">0</span> / 15 players
+          </div>
+          <div id="lobby-players" class="player-list"></div>
+          <button id="btn-start" class="btn btn-primary host-only hidden">Start Round</button>
+          <p id="lobby-waiting" class="waiting-msg hidden">Waiting for host to start...</p>
+        </div>
+      </section>
+
+      <!-- VIEW: Playing -->
+      <section id="view-playing" class="view">
+        <div class="card">
+          <div class="round-header">
+            <span class="round-badge">Round <span id="round-number">1</span></span>
+            <span class="category-badge" id="category-hint"></span>
+          </div>
+          <div id="word-container" class="word-container">
+            <button id="btn-reveal" class="btn btn-reveal">
+              <span class="reveal-icon">?</span>
+              <span>Tap to Reveal Your Word</span>
+            </button>
+            <div id="word-display" class="word-display hidden">
+              <p class="word-label">Your word is</p>
+              <span id="my-word"></span>
+              <button id="btn-hide-word" class="btn btn-ghost">Tap to Hide</button>
+            </div>
+          </div>
+          <p class="instruction">Discuss with your group. Who doesn't belong?</p>
+          <div id="playing-players" class="player-list compact"></div>
+          <button id="btn-start-vote" class="btn btn-danger host-only hidden">Start Vote</button>
+        </div>
+      </section>
+
+      <!-- VIEW: Voting -->
+      <section id="view-voting" class="view">
+        <div class="card">
+          <h2>Who is the Imposter?</h2>
+          <p class="subtitle">Choose wisely...</p>
+          <div id="vote-players" class="player-grid"></div>
+          <div id="vote-status" class="vote-progress">
+            <div class="progress-bar">
+              <div id="vote-progress-fill" class="progress-fill"></div>
+            </div>
+            <span id="vote-count-text">0 / 0 votes</span>
+          </div>
+          <div id="my-vote-display" class="hidden">
+            <p class="voted-text">You voted for <strong id="my-vote-name"></strong></p>
+          </div>
+          <button id="btn-force-results" class="btn btn-secondary host-only hidden">End Voting Early</button>
+        </div>
+      </section>
+
+      <!-- VIEW: Results -->
+      <section id="view-results" class="view">
+        <div class="card">
+          <div id="result-announcement" class="result-announcement"></div>
+          <div class="result-word-reveal">
+            <p>The word was</p>
+            <span id="result-word" class="result-word"></span>
+            <span id="result-category" class="result-category"></span>
+          </div>
+          <div id="vote-breakdown" class="vote-breakdown"></div>
+          <h3 class="scoreboard-title">Scoreboard</h3>
+          <div id="scoreboard" class="player-list scoreboard"></div>
+          <div class="result-actions host-only-container">
+            <button id="btn-next-round" class="btn btn-primary host-only hidden">Next Round</button>
+            <button id="btn-end-game" class="btn btn-secondary host-only hidden">End Game</button>
+          </div>
+          <p id="results-waiting" class="waiting-msg hidden">Waiting for host...</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast-container"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="words.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
